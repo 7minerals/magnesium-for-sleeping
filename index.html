@@ -190,7 +190,12 @@ footer p{font-size:13px;color:var(--muted);margin:0 0 8px;max-width:62ch}
 
   <section class="wrap posts" id="posts">
     <h2>Articles</h2>
-    <div id="post-list"><p class="state">Loading articles…</p></div>
+    <!-- Static links so Google can find these posts without running the script below.
+         The script replaces this block with the full list once it loads. -->
+    <div id="post-list">
+      <a class="post" href="/does-magnesium-spray-before-bed-help-you-sleep.html"><h3>Does Magnesium Spray Before Bed Help You Sleep?</h3></a>
+      <a class="post" href="/apple-cider-vinegar-vs-magnesium-supplements.html"><h3>Apple Cider Vinegar vs Magnesium Supplements</h3></a>
+    </div>
   </section>
 
   <section class="wrap" id="about">
@@ -235,19 +240,16 @@ fetch('https://api.github.com/repos/' + REPO + '/contents/')
     );
 
     if(!posts.length){
-      list.innerHTML = '<p class="state">No articles yet. The first one is on its way.</p>';
       return;
     }
 
     posts.sort((a,b) => b.name.localeCompare(a.name));
 
     list.innerHTML = posts.map(p =>
-      '<a class="post" href="' + p.name + '"><h3>' + titleFromName(p.name) + '</h3></a>'
+      '<a class="post" href="/' + p.name + '"><h3>' + titleFromName(p.name) + '</h3></a>'
     ).join('');
   })
-  .catch(() => {
-    list.innerHTML = '<p class="state">Articles could not load. Refresh in a moment.</p>';
-  });
+  .catch(() => {});
 </script>
 
 </body>
